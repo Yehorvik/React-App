@@ -3,14 +3,26 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import axios from 'axios';
+import { env } from 'process';
+import { join } from 'path';
+import { setupStore } from './store/store';
+import { Provider } from 'react-redux';
+
+axios.defaults.baseURL = `${process.env.SERVER_HOST}:${process.env.BACKEND_PORT}`
+axios.defaults.headers.post['Content-Type'] = 'application/json';
+
+const store = setupStore();
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
+  <Provider store={store}>
   <React.StrictMode>
     <App />
   </React.StrictMode>
+  </Provider>
 );
 
 // If you want to start measuring performance in your app, pass a function

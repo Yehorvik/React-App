@@ -1,12 +1,11 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 
-const HistoryBar = ({}) => {
+type Props = {}
+
+const HistoryBar = (props: Props) => {
   return (
     <div>HistoryBar</div>
   )
 }
-
-HistoryBar.propTypes = {}
 
 export default HistoryBar

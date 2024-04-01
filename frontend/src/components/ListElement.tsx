@@ -1,12 +1,11 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 
-const ListElement = props => {
+type Props = {}
+
+const ListElement = (props: Props) => {
   return (
     <div>ListElement</div>
   )
 }
-
-ListElement.propTypes = {}
 
 export default ListElement
