@@ -38,10 +38,10 @@ services:
       context: ./project-name
       dockerfile: Dockerfile
     container_name: nest-docker-postgres
-    volumes:
-      - ./project-name:/svr/app
-      - "./scripts/wait.sh:/wait.sh"
-      - /svr/app/node_modules
+    # volumes:
+    #   - ./project-name:/svr/app
+    #   - "./scripts/wait.sh:/wait.sh"
+    #   - /svr/app/node_modules
     env_file: .env
     environment:
       POSTGRES_HOST: db
@@ -65,8 +65,8 @@ services:
     env_file: .env
     ports:
       - "${FRONTEND_PORT}:${FRONTEND_PORT}"
-    volumes:
-      - "./frontend/src:/usr/src/app/src"
+    # volumes:
+    #   - "./frontend/src:/usr/src/app/src"
     # networks:
     #   - bp-network
     command: "npm start"

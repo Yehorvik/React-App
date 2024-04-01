@@ -1,30 +1,22 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import { useAppDispatch, useAppSelector } from './hooks/redux';
+import { fetchTaskLists } from './store/reducers/ActionCreators';
 
 function App() {
   const dispatch = useAppDispatch();
-  const {users} = useAppSelector(state => state.userReducer)
-  
+  const {taskList, isLoading, error} = useAppSelector(state => state.taskListReducer) || {}
+  useEffect(()=>{
+    dispatch(fetchTaskLists())
+  }, [])
   return (
     <div className="App">
-      {JSON.stringify(users, null, 2)}
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      {isLoading && <h1>loading</h1>}
+      {isLoading && <h1>{error}</h1>}
+      {}
+      {JSON.stringify(taskList|| null, null, 2)}
+     </div>
   );
 }
 

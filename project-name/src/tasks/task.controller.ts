@@ -20,6 +20,7 @@ export class TaskController {
 
   @Get()
   async getAll(): Promise<TaskListDto[]> {
+    console.log('here was an update');
     return this.appService.findAllLists();
   }
 

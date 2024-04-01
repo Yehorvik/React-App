@@ -1,5 +1,12 @@
-FROM node:14-slim
+FROM node:18
+
 WORKDIR /usr/src/app
-EXPOSE 5000
+
+COPY package*.json ./
+
+RUN npm install
+
 COPY . .
-RUN npm install --silent
+
+EXPOSE 5000
+

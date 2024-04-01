@@ -1,21 +1,23 @@
 import { applyMiddleware, compose, createStore } from "redux";
-import thunk from "redux-thunk";
-import rootReducer from "./reducers";
-import { configureStore } from "@reduxjs/toolkit";
+//import thunk from "redux-thunk";
+//import {rootReducer} from "./reducers/rootReducer";
+import taskListReducer from "./reducers/TaskListSlice";
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import TaskListSlice from "./reducers/TaskListSlice";
+export const rootReducer = combineReducers({
+    taskListReducer
+})
 
-const initialState = {};
-const middleware = [thunk];
 // eslint-disable-next-line no-undef
 const DEV = false;
 
-export const setupStore = () =>{
-   
-    return configureStore(
-      rootReducer,
+export const setupStore =
+    configureStore({
+      reducer: rootReducer,
+    }
     );
-  
-}
 
 export type RootState = ReturnType<typeof rootReducer>
-export type AppStore = ReturnType<typeof setupStore>
-export type AppDispatch = AppStore['distpatch']
+export type AppStore = typeof setupStore
+export type AppDispatch = typeof setupStore.dispatch
+//export type AppDispatch =  //AppStore['distpatch']

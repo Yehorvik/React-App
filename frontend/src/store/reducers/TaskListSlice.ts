@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { ITaskList } from "../../model/ITaskList";
 import { PayloadAction } from "@reduxjs/toolkit";
+import { fetchTaskLists } from "./ActionCreators";
 
 interface TaskListState{
     taskList: ITaskList[];
@@ -14,23 +15,28 @@ const initialState : TaskListState = {
     error: ""
 }
 
-export const taskListSlice = createSlice(
+const taskListSlice = createSlice(
     {
         name: "taskList",
         initialState,
         reducers:{
-            taskListFetching(state){
+        },
+        extraReducers:( builder) => {
+            builder.addCase(fetchTaskLists.fulfilled, (state,action: PayloadAction<ITaskList[]>) => {
+                state.isLoading = false;
+                state.taskList = action.payload;
+                state.error = '';
+            });
+            builder.addCase(fetchTaskLists.pending, (state) => {
                 state.isLoading = true;
-            },
-            taskListFetchingSuccess(state, action: PayloadAction<ITaskList[]>){
+            })
+            builder.addCase(fetchTaskLists.rejected, (state, action) => {
                 state.isLoading = false;
-                state.error = ''
-                state.taskList = action.payload
-            },
-            taskListFetchingError(state, action : PayloadAction<string>){
-                state.isLoading = false;
-                state.error = action.payload
-            }
+                state.taskList = [];
+                state.error = action.error.message || "";
+              });
         }
     }
 )
+
+export default taskListSlice.reducer
